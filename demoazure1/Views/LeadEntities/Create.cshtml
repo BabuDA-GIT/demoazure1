@@ -1,0 +1,106 @@
+﻿@model demoazure1.Models.LeadEntity
+
+@{
+    ViewData["Title"] = "Create";
+}
+<head>
+    <script>
+        function Createmethod() {
+            var dateFormat =
+                document.forms.RegForm.Date.value;
+            var name =
+                document.forms.RegForm.leadsource.value;
+            var name =
+                document.forms.RegForm.Name.value;
+            var email =
+                document.forms.RegForm.EMail.value;
+            var phone =
+                document.forms.RegForm.Mobile.value;
+           
+          
+              //Javascript reGex for Email Validation.
+            var regPhone=/^\d{10}$/;                                 
+            var regName = /\d+$/g;   
+            
+            var dateFormat = /(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[012])-\d{4}/;
+
+            if (!startDate.match(dateFormat)) {
+                window.alert("'Start Date' must be in format: DD-MM-YYYY");
+                dateFormat.focus();
+                return false;
+            }
+
+            if (name == "" || regName.test(name)) {
+                window.alert("Please enter your name properly.");
+                name.focus();
+                return false;
+            }
+ 
+            //if (email == "" || !regEmail.test(email)) {
+            //    window.alert("Please enter a valid e-mail address.");
+            //    email.focus();
+            //    return false;
+            //}
+        
+           
+            if (phone == "" || !regPhone.test(phone)) {
+                alert("Please enter valid phone number.");
+                phone.focus();
+                return false;
+            }
+        
+          
+        
+            return true;
+        }
+    </script>
+    </head>
+<h1>Create</h1>
+
+<h4>LeadEntity</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" name="RegForm" onsubmit="return Createmethod()" method="post">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="LeadDate" class="control-label"></label>
+                <input asp-for="LeadDate" class="form-control" name="Date" />
+                <span asp-validation-for="LeadDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LeadSource" class="control-label"></label>
+                <input asp-for="LeadSource" class="form-control" name="leadsource" type="text" pattern="[A-Za-z] {15}" />
+                <span asp-validation-for="LeadSource" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" type="text"  pattern="[A-Za-z] {15} " name="Name" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="mobile" class="control-label"></label>
+
+                <input  asp-for="mobile"  class="form-control" name="Mobile"/>
+                <span asp-validation-for="mobile" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email"  class="form-control"  name="EMail" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create"  class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
